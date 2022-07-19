@@ -1,0 +1,7 @@
+.popup__input_edit-pic {
+    margin: 0;
+}
+
+.popup__input_edit-pic:last-of-type {
+    margin: 0;
+}

@@ -1,0 +1,5 @@
+.photos__like_active {
+    opacity: 1;
+    background: url(../../../../images/like_icon_active.png) center no-repeat;
+    z-index: 1;
+}

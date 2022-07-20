@@ -2,9 +2,9 @@ import HeaderLogo from '../images/header_logo.png'
 
 function Header () {
     return(
-        <header class="header">
+        <header className="header">
       <img
-        class="header__logo"
+        className ="header__logo"
         src= {HeaderLogo}
         alt="website logo. Around the U.S."
       />

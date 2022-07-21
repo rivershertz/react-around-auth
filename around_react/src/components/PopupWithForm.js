@@ -3,6 +3,7 @@ function PopupWithForm({
     name,
     title,
     isOpen,
+    onClose
 }) {
   return (
     <div className={`popup popup_${name} ${isOpen ? 'popup_opened' : ''}`}>
@@ -10,6 +11,7 @@ function PopupWithForm({
         <button
           className={`popup__close popup__close_${name}`}
           type="button"
+          onClick={onClose}
         ></button>
         <h2 className="popup__title">{title}</h2>
         <div className="popup__inputs">

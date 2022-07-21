@@ -4,7 +4,7 @@ class Api {
     this._headers = headers;
   }
 
-  _reaquringRequest(url, headers) {
+  _reaquringRequest = (url, headers) => {
     fetch(url, headers).then((res) =>
       res.ok ? res.json() : Promise.reject(res.statusText)
     );
@@ -86,6 +86,6 @@ export const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
   headers: {
     authorization: "47fa02be-b6a6-415a-ad1a-fb244489b961",
-    "Content-Type": "application/json",
-  },
+    "Content-Type": "application/json"
+  }
 });

@@ -1,4 +1,10 @@
-import PopupWithForm from "./PopupWithForm";
+import { useEffect, useState } from "react";
+import {api} from "../utils/api.js";
+
+const getUserData = () => {
+  api.getUserInfo()
+  .then(res => console.log(res))
+}
 
 function Main({
   onEditAvatarClick,
@@ -6,6 +12,11 @@ function Main({
   onAddPlaceClick,
   
 }) {
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [userAvatar, setUserAvatar ] = useState('');
+
+
   return (
     <main className="content">
       <section className="profile">

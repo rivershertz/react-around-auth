@@ -11,10 +11,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
-api.getUserInfo()
-.then((res) => {
-  console.log(res)
-}) 
+
   // click popup handlers
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);

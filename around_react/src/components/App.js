@@ -3,7 +3,6 @@ import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import Footer from "./Footer";
-import { api } from '../utils/api'
 import "../index.css";
 import { useState } from "react";
 function App() {
@@ -11,6 +10,8 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
+  const [selectedCard, setSelectedCard] = useState({ name: "", link: "" });
 
   // click popup handlers
   function handleEditAvatarClick() {
@@ -29,8 +30,11 @@ function App() {
     setIsConfirmDeleteOpen(true);
     console.log("delete is clicked");
   }
-  function handleCardClick() {
-    document.querySelector(".popup_image-popup").classList.add("popup_opened");
+  function handleCardClick(card) {
+    console.log('image is clicked')
+    setIsImagePopupOpen(true)
+    setSelectedCard({name: card.name, link: card.link});
+    console.log(isImagePopupOpen)
   }
 
   // close popup handler
@@ -39,6 +43,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsConfirmDeleteOpen(false);
+    setIsImagePopupOpen(false)
   }
   return (
     <body class="page">
@@ -48,7 +53,9 @@ function App() {
         onAddPlaceClick={handleAddPlaceClick}
         onEditAvatarClick={handleEditAvatarClick}
         onDeleteCardClick={handleDeletePlaceClick}
+        onCardClick={handleCardClick}
       />
+      <ImagePopup card={selectedCard} onClose={closeAllPopups} isOpen={isImagePopupOpen}/>
       <PopupWithForm
         name="profile"
         title="Edit profile"
@@ -137,21 +144,7 @@ function App() {
         <span className="editLink-input-error"></span>
       </PopupWithForm>
 
-      <ImagePopup onCardClick={handleCardClick} />
       <Footer />
-      <template id="template">
-        <li className="photos__card">
-          <button className="photos__remove" type="button"></button>
-          <img className="photos__img" src="#" alt="picture in feed" />
-          <div className="photos__interactive">
-            <h2 className="photos__title"></h2>
-            <div className="photos__likes-section">
-              <button className="photos__like" type="button"></button>
-              <p className="photos__like-counter"></p>
-            </div>
-          </div>
-        </li>
-      </template>
     </body>
   );
 }

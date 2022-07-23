@@ -4,81 +4,77 @@ class Api {
     this._headers = headers;
   }
 
-  _reaquringRequest = (url, headers) => {
-    fetch(url, headers).then((res) =>
-      res.ok ? res.json() : Promise.reject(res.statusText)
-    );
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error ${res.status}`);
   }
 
   getInitialCards() {
-    return this._reaquringRequest(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   getUserInfo() {
-    return this._reaquringRequest(`${this._baseUrl}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   setUserInfo(name, about) {
-    return this._reaquringRequest(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
+      method: "PATCH",
       body: JSON.stringify({
         name: name,
         about: about,
       }),
-    });
+    }).then(this._checkResponse);
   }
 
-  setUserAvatar(link) {
-    return this._reaquringRequest(`${this._baseUrl}/users/me/avatar`, {
+  setUserAvatar(url) {
+    // Send the following PATCH request to change the profile picture:
+    // PATCH https://around.nomoreparties.co/v1/groupId/users/me/avatar
+    // In the request body, pass the JSON with a single property, avatar. This property should contain a link to the new profile picture. In the case that anything other than a link is sent, the server will return an error.
+    // When the user hovers over their profile picture, the edit icon should appear on it:
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      headers: this._headers,
       method: "PATCH",
-      headers: this._headers,
       body: JSON.stringify({
-        avatar: link,
+        avatar: url,
       }),
-    });
+    }).then(this._checkResponse);
   }
 
-  createCard({ imageName, link }) {
-    return this._reaquringRequest(`${this._baseUrl}/cards`, {
+  createCard(data) {
+    return fetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
       method: "POST",
-      headers: this._headers,
-      body: JSON.stringify({
-        name: imageName,
-        link: link,
-      }),
-    });
-  }
-
-  getLikes(cardId) {
-    return this._reaquringRequest(`${this._baseUrl}/cards/${cardId}`, {
-      headers: this._headers,
-    });
+      body: JSON.stringify(data),
+    }).then(this._checkResponse);
   }
 
   deleteCard(cardId) {
-    return this._reaquringRequest(`${this._baseUrl}/cards/${cardId}`, {
-      method: "DELETE",
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
-    });
+      method: "DELETE",
+    }).then(this._checkResponse);
   }
 
-  addLike(cardId) {
-    return this._reaquringRequest(`${this._baseUrl}/cards/likes/${cardId}`, {
+  likeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      headers: this._headers,
       method: "PUT",
-      headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
-  removeLike(cardId) {
-    return this._reaquringRequest(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: "DELETE",
+  dislikeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
       headers: this._headers,
-    });
+      method: "DELETE",
+    }).then(this._checkResponse);
   }
 }
 
@@ -86,6 +82,6 @@ export const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
   headers: {
     authorization: "47fa02be-b6a6-415a-ad1a-fb244489b961",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 });

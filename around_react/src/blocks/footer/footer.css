@@ -1,8 +1,8 @@
 .footer {
   max-width: 880px;
-  margin: 68px auto 60px;
+  margin: 68px auto 0;
   color: #545454;
-  position: absolute;
+  padding: 0 0 60px;
   bottom: 45px;
   left: 192px
 }

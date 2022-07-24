@@ -3,11 +3,12 @@ function PopupWithForm({
     name,
     title,
     isOpen,
-    onClose
+    onClose,
+    buttonText
 }) {
   return (
     <div className={`popup popup_${name} ${isOpen ? 'popup_opened' : ''}`}>
-      <form class="popup__form" name={name} novalidate>
+      <form className="popup__form" name={name} noValidate>
         <button
           className={`popup__close popup__close_${name}`}
           type="button"
@@ -21,7 +22,7 @@ function PopupWithForm({
           type="submit"
           className={`popup__save popup__save_${name}`}
         >
-          Save
+          {buttonText}
         </button>
       </form>
     </div>

@@ -16,22 +16,17 @@ function App() {
   // click popup handlers
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
-    console.log("avatar is clicked");
   }
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
-    console.log("profile is clicked");
   }
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true);
-    console.log("image is clicked");
   }
   function handleDeletePlaceClick() {
     setIsConfirmDeleteOpen(true);
-    console.log("delete is clicked");
   }
   function handleCardClick(card) {
-    console.log('image is clicked')
     setIsImagePopupOpen(true)
     setSelectedCard({name: card.name, link: card.link});
     console.log(isImagePopupOpen)
@@ -44,9 +39,10 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsConfirmDeleteOpen(false);
     setIsImagePopupOpen(false)
+    setSelectedCard({name: "", link: ""})
   }
   return (
-    <body class="page">
+    <div className="page">
       <Header />
       <Main
         onEditProfileClick={handleEditProfileClick}
@@ -61,8 +57,9 @@ function App() {
         title="Edit profile"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        buttonText='Save'
       >
-        <label className="popup__label" for="name">
+        <label className="popup__label" htmlFor="name">
           Type here your name
         </label>
         <input
@@ -71,11 +68,11 @@ function App() {
           type="text"
           placeholder="Name"
           required
-          minlength="2"
-          maxlength="40"
+          minLength="2"
+          maxLength="40"
         />
         <span className="profileName-input-error"></span>
-        <label className="popup__label" for="about">
+        <label className="popup__label" htmlFor="about">
           Type here about yourself
         </label>
         <input
@@ -84,8 +81,8 @@ function App() {
           type="text"
           placeholder="About me"
           required
-          minlength="2"
-          maxlength="200"
+          minLength="2"
+          maxLength="200"
         />
         <span className="profileAbout-input-error"></span>
       </PopupWithForm>
@@ -95,8 +92,10 @@ function App() {
         title="New place"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        buttonText='Create'
+
       >
-        <label className="popup__label" for="title">
+        <label className="popup__label" htmlFor="title">
           Type here the photo title
         </label>
         <input
@@ -105,11 +104,11 @@ function App() {
           type="text"
           placeholder="Title"
           required
-          minlength="1"
-          maxlength="30"
+          minLength="1"
+          maxLength="30"
         />
         <span className="imageName-input-error"></span>
-        <label className="popup__label" for="link">
+        <label className="popup__label" htmlFor="link">
           Type here the photo URL
         </label>
         <input
@@ -126,6 +125,7 @@ function App() {
         name="delete"
         title="Are you sure?"
         isOpen={isConfirmDeleteOpen}
+        buttonText='Yes'
       ></PopupWithForm>
 
       <PopupWithForm
@@ -133,6 +133,8 @@ function App() {
         title="Change profile picture"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        buttonText='Save'
+
       >
         <input
           id="editLink"
@@ -145,7 +147,7 @@ function App() {
       </PopupWithForm>
 
       <Footer />
-    </body>
+    </div>
   );
 }
 

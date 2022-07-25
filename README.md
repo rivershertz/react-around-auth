@@ -13,4 +13,4 @@ In this phase Ive experienced the process of translating code structure from one
 Lots of joy as usual!
 
 ##### Technologies
-* Raeact
+* React

@@ -1,15 +1,32 @@
-function Card({card, onCardClick, link, name, likes}) {
+import React from "react";
+import { currentUserContext } from '../contexts/CurrentUserContext'
+
+function Card({card, onCardClick, link, name, likes, onCardLike, onCardDelete}) {
     function handleClick() {
         onCardClick(card)
     }
+
+    function handleLikeClick() {
+      onCardLike(card)
+    }
+
+    function handleDeleteClick() {
+      onCardDelete(card)
+    }
+
+
+    const currentUser = React.useContext(currentUserContext)
+    const isOwn = card.owner._id === currentUser._id;
+    const isLiked = card.likes.some(user => user._id === currentUser._id)
+
   return (
     <li className={`photos__card`}>
-      <button className="photos__remove" type="button"></button>
+      <button className={`${isOwn ? 'photos__remove' : 'photos__remove_hidden'}`} type="button" onClick={handleDeleteClick}/>
       <img className="photos__img" src={link} alt="picture in feed" onClick={handleClick} />
       <div className="photos__interactive">
         <h2 className="photos__title">{name}</h2>
         <div className="photos__likes-section">
-          <button className="photos__like" type="button" />
+          <button className={`photos__like ${isLiked ? 'photos__like_active' : '' }`} type="button" onClick={handleLikeClick}/>
           <p className="photos__like-counter">{likes}</p>
         </div>
       </div>

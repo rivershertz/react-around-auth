@@ -23,6 +23,7 @@
 @import url(./blocks/photos/__like-counter/photos__like-counter.css);
 @import url(./blocks/photos/__like/photos__like.css);
 @import url(./blocks/photos/__like/_active/photos__like_active.css);
+@import url(./blocks/photos/__remove/_hidden/photos__remove_hidden.css);
 @import url(./blocks/popup/popup.css);
 @import url(./blocks/popup/__form/popup__form.css);
 @import url(./blocks/popup/__title/popup__title.css);

@@ -63,25 +63,43 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      headers: this._headers,
-      method: "PUT",
-    }).then(this._checkResponse);
+  //  _likeCard(cardId) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  //     headers: this._headers,
+  //     method: "PUT",
+  //   }).then(this._checkResponse);
+  // }
+
+  // _dislikeCard(cardId) {
+  //   return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+  //     headers: this._headers,
+  //     method: "DELETE",
+  //   }).then(this._checkResponse);
+  // }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        headers: this._headers,
+        method: "DELETE",
+      }).then(this._checkResponse);
+    } else {
+      return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+        headers: this._headers,
+        method: "PUT",
+      }).then(this._checkResponse);
+    }
   }
 
-  dislikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      headers: this._headers,
-      method: "DELETE",
-    }).then(this._checkResponse);
-  }
+ 
 }
 
-export const api = new Api({
+const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
   headers: {
     authorization: "47fa02be-b6a6-415a-ad1a-fb244489b961",
     "Content-Type": "application/json",
   },
 });
+
+export default api;

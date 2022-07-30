@@ -13,7 +13,10 @@ In this phase Ive experienced the process of translating code structure from one
 Lots of joy as usual!
 
 ##### Phase 2
-
+Up untill this point all of the functionallity is working! the user can edit his profile and add some places to the cards. Although there is still room for improvement on the UX side...
+In this phase I've used context and ref, worked with some more Api requests.
+This time around went much more fluently!
+Lots of joy coding as usual!
 
 ##### Technologies
 * React

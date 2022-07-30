@@ -12,5 +12,8 @@ At this stage not every functionallity is working yet, but here is the list of s
 In this phase Ive experienced the process of translating code structure from one technology to another, utilizing my knoledge and understanding of code to create a similar outcome by using a different method.
 Lots of joy as usual!
 
+##### Phase 2
+
+
 ##### Technologies
 * React

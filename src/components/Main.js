@@ -1,6 +1,4 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import api from "../utils/api.js";
 import Card from "./Card.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -14,13 +12,6 @@ function Main({
   onCardDelete,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
-
-  //   useEffect(() => {
-  //   const x = cards.map(item => {
-  //     return item.likes
-  //   })
-  //   console.log(x)
-  // })
 
   return (
     <main className="content">

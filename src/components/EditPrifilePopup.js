@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
-import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
@@ -9,8 +8,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [about, setAbout] = useState(currentUser.about);
 
   useEffect(() => {
-    setName(currentUser.name);
-    setAbout(currentUser.about);
+    setName(currentUser.name || '');
+    setAbout(currentUser.about || '');
   }, [currentUser]);
 
   function handleNameChange(e) {
@@ -51,8 +50,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         required
         minLength="2"
         maxLength="40"
-      ></input>
-      <span className="profileName-input-error"></span>
+      />
+      <span className="profileName-input-error" />
       <label className="popup__label" htmlFor="about">
         Type here about yourself
       </label>
@@ -67,7 +66,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
         minLength="2"
         maxLength="200"
       />
-      <span className="profileAbout-input-error"></span>
+      <span className="profileAbout-input-error" />
     </PopupWithForm>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
@@ -7,12 +7,18 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
   const avatarRef = React.useRef(currentUser.avatar);
 
   function handleSubmit(e) {
-    // console.log(avatarRef)
     e.preventDefault();
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
   }
+
+  // reseting form when the form is opened
+  useEffect(() => {
+    if(isOpen) {
+      avatarRef.current.value = ''
+    }}, [isOpen])
+
   return (
     <PopupWithForm
       name="edit-pic"
@@ -30,7 +36,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
         placeholder="Image URL"
         required
       />
-      <span className="editLink-input-error"></span>
+      <span className="editLink-input-error" />
     </PopupWithForm>
   );
 }

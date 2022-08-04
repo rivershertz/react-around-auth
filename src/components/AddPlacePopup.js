@@ -1,5 +1,5 @@
 import PopupWithForm from "./PopupWithForm";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
   const [name, setName] = useState("");
@@ -20,6 +20,15 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       link,
     });
   }
+
+  // reseting form when the form is opened
+  useEffect(() => {
+    if (isOpen) {
+      setName("");
+      setLink("");
+    }
+  }, [isOpen]);
+
   return (
     <PopupWithForm
       name="new-image"
@@ -43,7 +52,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         minLength="1"
         maxLength="30"
       />
-      <span className="imageName-input-error"></span>
+      <span className="imageName-input-error" />
       <label className="popup__label" htmlFor="link">
         Type here the photo URL
       </label>
@@ -56,7 +65,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         placeholder="Image URL"
         required
       />
-      <span className="link-input-error"></span>
+      <span className="link-input-error" />
     </PopupWithForm>
   );
 }

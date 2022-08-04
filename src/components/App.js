@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Header from "./Header";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
@@ -9,7 +10,7 @@ import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import "../index.css";
-import { useEffect, useState } from "react";
+
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -56,7 +57,6 @@ function App() {
   function handleCardClick(card) {
     setIsImagePopupOpen(true);
     setSelectedCard({ name: card.name, link: card.link });
-    console.log(isImagePopupOpen);
   }
 
   // popup close handler
@@ -176,7 +176,7 @@ function App() {
           title="Are you sure?"
           isOpen={isConfirmDeleteOpen}
           buttonText="Yes"
-        ></PopupWithForm>
+        />
 
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}

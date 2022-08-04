@@ -9,7 +9,7 @@ function PopupWithForm({
 }) {
   return (
     <div className={`popup popup_${name} ${isOpen ? 'popup_opened' : ''}`}>
-      <form className="popup__form" name={name} onSubmit={onSubmit} noValidate>
+      <form className="popup__form" name={name} onSubmit={onSubmit}>
         <button
           className={`popup__close popup__close_${name}`}
           type="button"

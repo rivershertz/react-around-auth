@@ -21,9 +21,9 @@ function Card({
   function handleDeleteClick() {
     onCardDelete(card);
   }
-
+  let isOwn
   const currentUser = React.useContext(CurrentUserContext);
-  const isOwn = card.owner._id === currentUser._id;
+  isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some((user) => user._id === currentUser._id);
 
   return (

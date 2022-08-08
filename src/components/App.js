@@ -119,11 +119,10 @@ function App() {
   function handleCardDelete(card) {
     api
       .deleteCard(card._id)
-      .then((newCard) => {
-        console.log(newCard);
+      .then(() => {
         setCards((state) =>
           state.filter((currentCard) =>
-            currentCard._id === card._id ? newCard : currentCard
+            currentCard._id === card._id ? '' : currentCard
           )
         );
       })

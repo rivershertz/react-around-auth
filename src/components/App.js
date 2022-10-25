@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
-import Header from "./Header";
-import Main from "./Main";
-import PopupWithForm from "./PopupWithForm";
-import ImagePopup from "./ImagePopup";
-import Footer from "./Footer";
-import api from "../utils/api";
-import EditProfilePopup from "./EditPrifilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import "../index.css";
+import { useEffect, useState } from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
+import Header from './Header';
+import Main from './Main';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import Footer from './Footer';
+import api from '../utils/api';
+import EditProfilePopup from './EditPrifilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+import Register from './Register';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import '../index.css';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -17,7 +19,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({ name: "", link: "" });
+  const [selectedCard, setSelectedCard] = useState({ name: '', link: '' });
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
 
@@ -66,7 +68,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsConfirmDeleteOpen(false);
     setIsImagePopupOpen(false);
-    setSelectedCard({ name: "", link: "" });
+    setSelectedCard({ name: '', link: '' });
   }
 
   // updating user profile name and about
@@ -142,8 +144,13 @@ function App() {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Header />
+      <div className='page'>
+        <Switch>
+          <Route path='/register'>
+            <Register />
+          </Route>
+          <Header />
+        </Switch>
         <Main
           onEditProfileClick={handleEditProfileClick}
           onAddPlaceClick={handleAddPlaceClick}
@@ -171,10 +178,10 @@ function App() {
         />
 
         <PopupWithForm
-          name="delete"
-          title="Are you sure?"
+          name='delete'
+          title='Are you sure?'
           isOpen={isConfirmDeleteOpen}
-          buttonText="Yes"
+          buttonText='Yes'
         />
 
         <EditAvatarPopup

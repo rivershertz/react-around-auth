@@ -1,0 +1,33 @@
+.photos {
+  max-width: 880px;
+  margin: 46px auto 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
+  grid-gap: 20px 17px;
+}
+
+@media screen and (max-width: 880px) {
+  .photos {
+    max-width: 600px;
+  }
+}
+
+@media screen and (max-width: 581px) {
+  .photos {
+    max-width: 450px;
+  }
+}
+
+@media screen and (max-width: 417px) {
+  .photos {
+    max-width: 282px;
+    margin: 36px auto 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .photos {
+    max-width: 282px;
+  }
+}

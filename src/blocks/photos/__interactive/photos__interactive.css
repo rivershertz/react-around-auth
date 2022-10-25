@@ -1,0 +1,11 @@
+.photos__interactive {
+  margin: 0;
+  padding: 25px 15px 24px 21px;
+  background-color: #fff;
+  color: #000;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

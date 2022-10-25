@@ -151,52 +151,57 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
         <Header />
-        <Register />
-        <Login />
-        <InfoToolTip />
-        <ProtectedRoute />
 
-        {isLoggedIn && (
-          <div>
-            <Main
-              onEditProfileClick={handleEditProfileClick}
-              onAddPlaceClick={handleAddPlaceClick}
-              onEditAvatarClick={handleEditAvatarClick}
-              onDeleteCardClick={handleDeletePlaceClick}
-              onCardClick={handleCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
-              cards={cards}
-            />
-            <ImagePopup
-              card={selectedCard}
-              onClose={closeAllPopups}
-              isOpen={isImagePopupOpen}
-            />
-            <EditProfilePopup
-              isOpen={isEditProfilePopupOpen}
-              onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
-            />
-            <AddPlacePopup
-              isOpen={isAddPlacePopupOpen}
-              onClose={closeAllPopups}
-              onAddPlace={handleAddPlaceSubmit}
-            />
-            <PopupWithForm
-              name='delete'
-              title='Are you sure?'
-              isOpen={isConfirmDeleteOpen}
-              buttonText='Yes'
-            />
-            <EditAvatarPopup
-              isOpen={isEditAvatarPopupOpen}
-              onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
-            />
-            <Footer />
-          </div>
-        )}
+        <Switch>
+          <Route exact path='/'>
+            <ProtectedRoute>
+              <Main
+                onEditProfileClick={handleEditProfileClick}
+                onAddPlaceClick={handleAddPlaceClick}
+                onEditAvatarClick={handleEditAvatarClick}
+                onDeleteCardClick={handleDeletePlaceClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+                cards={cards}
+              />
+              <ImagePopup
+                card={selectedCard}
+                onClose={closeAllPopups}
+                isOpen={isImagePopupOpen}
+              />
+              <EditProfilePopup
+                isOpen={isEditProfilePopupOpen}
+                onClose={closeAllPopups}
+                onUpdateUser={handleUpdateUser}
+              />
+              <AddPlacePopup
+                isOpen={isAddPlacePopupOpen}
+                onClose={closeAllPopups}
+                onAddPlace={handleAddPlaceSubmit}
+              />
+              <PopupWithForm
+                name='delete'
+                title='Are you sure?'
+                isOpen={isConfirmDeleteOpen}
+                buttonText='Yes'
+              />
+              <EditAvatarPopup
+                isOpen={isEditAvatarPopupOpen}
+                onClose={closeAllPopups}
+                onUpdateAvatar={handleUpdateAvatar}
+              />
+              <Footer />
+            </ProtectedRoute>
+          </Route>
+          <Route path='/login'>
+            <Login />
+          </Route>
+          <Route path='/signup'>
+            <Register />
+          </Route>
+          <Route></Route>
+        </Switch>
       </div>
     </CurrentUserContext.Provider>
   );

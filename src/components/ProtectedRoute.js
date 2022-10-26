@@ -1,9 +1,11 @@
-function ProtectedRoute({ children }) {
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+
+function ProtectedRoute({ children, isLoggedIn, ...props }) {
   return (
-    <div>
-      <h1 style={{ color: 'white' }}>ProtectedRoute</h1>
-      {children}
-    </div>
+    <Route {...props}>
+      {isLoggedIn ? children : <Redirect to={'/login'} />}
+    </Route>
   );
 }
 

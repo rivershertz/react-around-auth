@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
 import Header from './Header';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
@@ -13,6 +13,7 @@ import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import InfoToolTip from './InfoToolTip';
+import { signUp, signIn, autoSignIn } from '../utils/auth';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 import '../index.css';
 
@@ -22,11 +23,16 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({ name: '', link: '' });
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
 
-  const isLoggedIn = true;
+  let history = useHistory();
+  const JWT = localStorage.getItem('jwt');
+  const [userInfo, setUserInfo] = useState('');
 
   //fetch user info
   useEffect(() => {
@@ -73,6 +79,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsConfirmDeleteOpen(false);
     setIsImagePopupOpen(false);
+    setIsInfoToolTipOpen(false);
     setSelectedCard({ name: '', link: '' });
   }
 
@@ -147,60 +154,115 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  // handle sign up
+  function onSignUp(data) {
+    signUp(data.email, data.password)
+      .then((res) =>
+        res.ok ? res.json() : Promise.reject(`Error ${res.status}`)
+      )
+      .then((res) => {
+        setIsInfoToolTipOpen(true);
+        setIsRegisterSuccessful(true);
+        history.push('/login');
+      })
+      .catch((err) => {
+        setIsInfoToolTipOpen(true);
+        setIsRegisterSuccessful(false);
+        console.log(err);
+      });
+  }
+
+  function onSignIn(data) {
+    signIn(data.email, data.password)
+      .then((res) => {
+        setIsLoggedIn(true);
+        console.log(res);
+        history.push('/');
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleSignOut() {
+    localStorage.removeItem('jwt');
+    history.push('/login');
+  }
+
+  // auto sign in
+  useEffect(() => {
+    if (JWT) {
+      console.log(JWT);
+      autoSignIn(JWT)
+        .then((res) => {
+          if (res) {
+            setUserInfo(res.data.email);
+            setIsLoggedIn(true);
+            history.push('/');
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [JWT, history]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
-        <Header />
+        <Header handleSignOut={handleSignOut} userEmail={userInfo} />
 
         <Switch>
-          <Route exact path='/'>
-            <ProtectedRoute>
-              <Main
-                onEditProfileClick={handleEditProfileClick}
-                onAddPlaceClick={handleAddPlaceClick}
-                onEditAvatarClick={handleEditAvatarClick}
-                onDeleteCardClick={handleDeletePlaceClick}
-                onCardClick={handleCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
-                cards={cards}
-              />
-              <ImagePopup
-                card={selectedCard}
-                onClose={closeAllPopups}
-                isOpen={isImagePopupOpen}
-              />
-              <EditProfilePopup
-                isOpen={isEditProfilePopupOpen}
-                onClose={closeAllPopups}
-                onUpdateUser={handleUpdateUser}
-              />
-              <AddPlacePopup
-                isOpen={isAddPlacePopupOpen}
-                onClose={closeAllPopups}
-                onAddPlace={handleAddPlaceSubmit}
-              />
-              <PopupWithForm
-                name='delete'
-                title='Are you sure?'
-                isOpen={isConfirmDeleteOpen}
-                buttonText='Yes'
-              />
-              <EditAvatarPopup
-                isOpen={isEditAvatarPopupOpen}
-                onClose={closeAllPopups}
-                onUpdateAvatar={handleUpdateAvatar}
-              />
-              <Footer />
-            </ProtectedRoute>
-          </Route>
+          <ProtectedRoute exact path='/' isLoggedIn={isLoggedIn}>
+            <Main
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onEditAvatarClick={handleEditAvatarClick}
+              onDeleteCardClick={handleDeletePlaceClick}
+              onCardClick={handleCardClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
+              cards={cards}
+            />
+            <ImagePopup
+              card={selectedCard}
+              onClose={closeAllPopups}
+              isOpen={isImagePopupOpen}
+            />
+            <EditProfilePopup
+              isOpen={isEditProfilePopupOpen}
+              onClose={closeAllPopups}
+              onUpdateUser={handleUpdateUser}
+            />
+            <AddPlacePopup
+              isOpen={isAddPlacePopupOpen}
+              onClose={closeAllPopups}
+              onAddPlace={handleAddPlaceSubmit}
+            />
+            <PopupWithForm
+              name='delete'
+              title='Are you sure?'
+              isOpen={isConfirmDeleteOpen}
+              buttonText='Yes'
+            />
+            <EditAvatarPopup
+              isOpen={isEditAvatarPopupOpen}
+              onClose={closeAllPopups}
+              onUpdateAvatar={handleUpdateAvatar}
+            />
+            <Footer />
+          </ProtectedRoute>
+
           <Route path='/login'>
-            <Login />
+            <Login onSignIn={onSignIn} />
           </Route>
           <Route path='/signup'>
-            <Register />
+            <Register onSignUp={onSignUp} />
+            <InfoToolTip
+              onClose={closeAllPopups}
+              isOpen={isInfoToolTipOpen}
+              isSuccessful={isRegisterSuccessful}
+            />
           </Route>
-          <Route></Route>
+          <Route>
+            {isLoggedIn ? <Redirect to='/' /> : <Redirect to='/login' />}
+          </Route>
         </Switch>
       </div>
     </CurrentUserContext.Provider>

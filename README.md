@@ -1,6 +1,4 @@
-# Around the U.S. project on React
-
-## Featuring authorization and registration
+# Around the U.S. project on React - Featuring authorization and registration
 
 ### Description
 

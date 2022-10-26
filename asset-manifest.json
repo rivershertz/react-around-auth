@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/react-around-auth/static/css/main.d5e6f69f.css",
+    "main.js": "/react-around-auth/static/js/main.d43c6fe4.js",
+    "static/js/787.1c78f32b.chunk.js": "/react-around-auth/static/js/787.1c78f32b.chunk.js",
+    "static/media/Profile_pic.jpg": "/react-around-auth/static/media/Profile_pic.6163c2039d1f0eb8d7ca.jpg",
+    "index.html": "/react-around-auth/index.html",
+    "static/media/Like_icon.svg": "/react-around-auth/static/media/Like_icon.d1d9bf725542997f16a9.svg",
+    "main.d5e6f69f.css.map": "/react-around-auth/static/css/main.d5e6f69f.css.map",
+    "main.d43c6fe4.js.map": "/react-around-auth/static/js/main.d43c6fe4.js.map",
+    "787.1c78f32b.chunk.js.map": "/react-around-auth/static/js/787.1c78f32b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d5e6f69f.css",
+    "static/js/main.d43c6fe4.js"
+  ]
+}

@@ -1,21 +1,21 @@
-function ImagePopup({card, onClose, isOpen}) {
+function ImagePopup({ card, onClose, isOpen }) {
   return (
     <div className={`popup popup_image-popup ${isOpen ? 'popup_opened' : ''}`}>
-      <div className="popup__element popup__element_image-popup">
+      <div className='popup__element popup__element_image-popup'>
         <button
-          className="popup__close popup__close_image-popup"
-          type="button"
+          className='popup__close popup__close_image-popup'
+          type='button'
           onClick={onClose}
         ></button>
         <img
-          className="popup__img popup__img_image-popup"
+          className='popup__img popup__img_image-popup'
           src={card.link}
-          alt="inlarged picture"
+          alt='enlarged clicked card'
         />
-        <p className="popup__title popup__title_image-popup">{card.name}</p>
+        <p className='popup__title popup__title_image-popup'>{card.name}</p>
       </div>
     </div>
-  )
+  );
 }
 
 export default ImagePopup;

@@ -1,0 +1,15 @@
+.auth-form__input {
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  height: 2rem;
+}
+
+.auth-form__input::placeholder {
+  color: white;
+}
+
+.auth-form__input:focus {
+  outline: none;
+}

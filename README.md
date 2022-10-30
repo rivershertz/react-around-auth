@@ -1,4 +1,4 @@
-# Around the U.S. project on React - Featuring authorization and registration
+# [Around the U.S.](https://rivershertz.github.io/react-around-auth) project on React - Featuring authorization and registration
 
 ### Description
 

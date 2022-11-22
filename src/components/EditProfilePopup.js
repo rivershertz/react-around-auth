@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import PopupWithForm from "./PopupWithForm";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import React, { useState, useEffect } from 'react';
+import PopupWithForm from './PopupWithForm';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -8,9 +8,9 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
   const [about, setAbout] = useState(currentUser.about || '');
 
   useEffect(() => {
-    setName(currentUser.name || '')
-    setAbout(currentUser.about || '')
-  }, [currentUser])
+    setName(currentUser.name || '');
+    setAbout(currentUser.about || '');
+  }, [currentUser]);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -30,43 +30,43 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   return (
     <PopupWithForm
-      name="profile"
-      title="Edit profile"
+      name='profile'
+      title='Edit profile'
       isOpen={isOpen}
       onClose={onClose}
-      buttonText="Save"
+      buttonText='Save'
       onSubmit={handleSubmit}
     >
-      <label className="popup__label" htmlFor="name">
+      <label className='popup__label' htmlFor='name'>
         Type here your name
       </label>
       <input
-        id="profileName"
-        className="popup__input popup__name"
+        id='profileName'
+        className='popup__input popup__name'
         value={name}
         onChange={handleNameChange}
-        type="text"
-        placeholder="Name"
+        type='text'
+        placeholder='Name'
         required
-        minLength="2"
-        maxLength="40"
+        minLength='2'
+        maxLength='40'
       />
-      <span className="profileName-input-error" />
-      <label className="popup__label" htmlFor="about">
+      <span className='profileName-input-error' />
+      <label className='popup__label' htmlFor='about'>
         Type here about yourself
       </label>
       <input
-        id="profileAbout"
-        className="popup__input popup__about"
+        id='profileAbout'
+        className='popup__input popup__about'
         value={about}
         onChange={handleAboutChange}
-        type="text"
-        placeholder="About me"
+        type='text'
+        placeholder='About me'
         required
-        minLength="2"
-        maxLength="200"
+        minLength='2'
+        maxLength='200'
       />
-      <span className="profileAbout-input-error" />
+      <span className='profileAbout-input-error' />
     </PopupWithForm>
   );
 }

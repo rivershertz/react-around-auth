@@ -30,7 +30,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRegisterSuccessful, setIsRegisterSuccessful] = useState(false);
 
-  let history = useHistory();
+  const history = useHistory();
   const JWT = localStorage.getItem('jwt');
   const [userInfo, setUserInfo] = useState('');
 
@@ -135,9 +135,7 @@ function App() {
       .deleteCard(card._id)
       .then(() => {
         setCards((state) =>
-          state.filter((currentCard) =>
-            currentCard._id === card._id ? '' : currentCard
-          )
+          state.filter((currentCard) => currentCard._id !== card._id)
         );
       })
       .catch((err) => console.log(err));
@@ -157,10 +155,7 @@ function App() {
   // handle sign up
   function onSignUp(data) {
     signUp(data.email, data.password)
-      .then((res) =>
-        res.ok ? res.json() : Promise.reject(`Error ${res.status}`)
-      )
-      .then((res) => {
+      .then(() => {
         setIsInfoToolTipOpen(true);
         setIsRegisterSuccessful(true);
         history.push('/login');
@@ -174,9 +169,8 @@ function App() {
 
   function onSignIn(data) {
     signIn(data.email, data.password)
-      .then((res) => {
+      .then(() => {
         setIsLoggedIn(true);
-        console.log(res);
         history.push('/');
       })
       .catch((err) => console.log(err));
@@ -190,7 +184,6 @@ function App() {
   // auto sign in
   useEffect(() => {
     if (JWT) {
-      console.log(JWT);
       autoSignIn(JWT)
         .then((res) => {
           if (res) {

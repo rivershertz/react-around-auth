@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card({
@@ -21,10 +22,13 @@ function Card({
   function handleDeleteClick() {
     onCardDelete(card);
   }
-  let isOwn;
+  const [isOwn, setIsOwn] = useState(false);
   const currentUser = React.useContext(CurrentUserContext);
-  isOwn = card.owner._id === currentUser._id;
   const isLiked = card.likes.some((user) => user._id === currentUser._id);
+
+  useEffect(() => {
+    setIsOwn(card.owner._id === currentUser._id);
+  }, [card.owner._id, currentUser._id]);
 
   return (
     <li className={`photos__card`}>

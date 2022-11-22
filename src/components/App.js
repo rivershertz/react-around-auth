@@ -88,11 +88,7 @@ function App() {
     api
       .setUserInfo(data.name, data.about)
       .then((res) => {
-        setCurrentUser({
-          name: res.name,
-          about: res.about,
-          avatar: res.avatar,
-        });
+        setCurrentUser(res);
         closeAllPopups();
       })
       .catch((err) => console.log(err));
@@ -103,11 +99,7 @@ function App() {
     api
       .setUserAvatar(data)
       .then((res) => {
-        setCurrentUser({
-          name: res.name,
-          about: res.about,
-          avatar: res.avatar,
-        });
+        setCurrentUser(res);
         closeAllPopups();
       })
       .catch((err) => console.log(err));

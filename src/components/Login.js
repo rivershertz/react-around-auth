@@ -30,14 +30,14 @@ function Login({ onSignIn }) {
             placeholder='Email'
             className='auth-form__input'
             onChange={handleEmailChange}
-            value=''
+            value={email}
           />
           <input
             type='password'
             placeholder='Password'
             className='auth-form__input'
             onChange={handlePasswordChange}
-            value=''
+            value={password}
           />
         </div>
         <div className='auth-form__sub-section'>

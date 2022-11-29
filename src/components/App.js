@@ -148,8 +148,8 @@ function App() {
   function onSignUp(data) {
     signUp(data.email, data.password)
       .then(() => {
-        setIsInfoToolTipOpen(true);
         setIsRegisterSuccessful(true);
+        setIsInfoToolTipOpen(true);
         history.push('/login');
       })
       .catch((err) => {
@@ -165,7 +165,11 @@ function App() {
         setIsLoggedIn(true);
         history.push('/');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsInfoToolTipOpen(true);
+        setIsRegisterSuccessful(false);
+        console.log(err);
+      });
   }
 
   function handleSignOut() {
@@ -236,6 +240,11 @@ function App() {
 
           <Route path='/login'>
             <Login onSignIn={onSignIn} />
+            <InfoToolTip
+              onClose={closeAllPopups}
+              isOpen={isInfoToolTipOpen}
+              isSuccessful={isRegisterSuccessful}
+            />
           </Route>
           <Route path='/signup'>
             <Register onSignUp={onSignUp} />
